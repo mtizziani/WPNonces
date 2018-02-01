@@ -14,6 +14,21 @@ use Mtizziani\WPNonces\{
 
 class WPNonceTest extends \PHPUnit\Framework\TestCase
 {
+
+    /**
+     * running before every test
+     */
+    public function setUp(){
+
+    }
+
+    /**
+     * running after every test
+     */
+    public function tearDown(){
+
+    }
+
     /**
      * @test
      */
