@@ -9,7 +9,7 @@
 namespace Mtizziani\WPNonces\Tests\php\unit;
 
 use Mtizziani\WPNonces\{
-    Nonces as NonceRoot
+    WPNonce as NonceRoot
 };
 
 class WPNonceTest extends \PHPUnit\Framework\TestCase

@@ -8,7 +8,7 @@ namespace Mtizziani\WPNonces;
  * @author Maik Tizziani <mtizziani@gmail.com>
  * @package Mtizziani\WPNonces
  */
-class Nonces
+class WPNonce
 {
     public static function test() {
         return true;
