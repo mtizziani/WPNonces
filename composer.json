@@ -1,0 +1,27 @@
+{
+  "name": "Mtizziani/WPNonces",
+  "type": "wordpress-plugin",
+  "authors": [
+    {
+      "name": "Maik Tizziani",
+      "role": "developer",
+      "email": "mtizziani@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^7.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mtizziani\\WPNonces\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Mtizziani\\WPNonces\\Tests\\": "tests"
+    }
+  }
+}
