@@ -71,4 +71,49 @@ class WPNonceTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @test
+     */
+    public function if_nonce_is_not_create_returns_empty_string() {
+        // define what is accepted as correct
+        $accepted = '';
+
+        $root = new NonceRoot();
+        $askedResult = $root->nonce();
+
+        $this->assertEquals($askedResult, $accepted);
+    }
+
+    /**
+     * @test
+     */
+    public function if_nonce_will_be_create_and_returned(){
+        // generate array with multiple action names
+        $actionStrings = array('first_mocked_action', 'second_mocked_action');
+
+        foreach($actionStrings as $key => $val) {
+            $root = new NonceRoot();
+            $directResult = $root->nonce($val);
+            $askedResult = $root->nonce();
+
+            $this->assertEquals($directResult, $this->mockedNonceResult);
+            $this->assertEquals($askedResult, $this->mockedNonceResult);
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function if_nonce_create_sets_action(){
+        // generate array with multiple action names
+        $actionStrings = array('first_mocked_action', 'second_mocked_action');
+
+        foreach($actionStrings as $key => $val) {
+            $root = new NonceRoot();
+            $root->nonce($val);
+            $resultAction = $root->action();
+
+            $this->assertNotEmpty($resultAction);
+        }
+    }
 }
