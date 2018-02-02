@@ -96,7 +96,7 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
          */
         public function if_action_will_be_set_and_returned() {
             // generate array with multiple action names
-            $actionStrings = array('first_mocked_action', 'second_mocked_action');
+            $actionStrings = array('first_mocked_action', 'second_mocked_action', -1);
 
             // run over the array for asserting
             foreach($actionStrings as $key => $val) {
@@ -127,7 +127,7 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
          */
         public function if_nonce_will_be_create_and_returned(){
             // generate array with multiple action names
-            $actionStrings = array('first_mocked_action', 'second_mocked_action');
+            $actionStrings = array('first_mocked_action', 'second_mocked_action', -1);
 
             foreach($actionStrings as $key => $val) {
                 $root = new NonceRoot();
@@ -144,7 +144,7 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
          */
         public function if_nonce_create_sets_action(){
             // generate array with multiple action names
-            $actionStrings = array('first_mocked_action', 'second_mocked_action');
+            $actionStrings = array('first_mocked_action', 'second_mocked_action', -1);
 
             foreach($actionStrings as $key => $val) {
                 $root = new NonceRoot();
