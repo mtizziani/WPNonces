@@ -38,8 +38,17 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
             WP_Mock::userFunction('wp_verify_nonce', array('return' => $result));
         }
 
-        private function mockingHelper_field(NonceRoot $nonceObject, $name, $hash = '') {
-            if(strlen($hash) <= 1){
+        /**
+         * helping method for wp_nonce_field
+         *
+         * @todo handling action, referer, echo in mock
+         *
+         * @param NonceRoot $nonceObject
+         * @param $name
+         * @param string|NULL $hash
+         */
+        private function mockingHelper_field(NonceRoot $nonceObject, $name, string $hash = NULL) {
+            if(is_null($hash)){
                 $hash = $nonceObject->nonce();
             }
             $out = '<input type="hidden" id="'.$name.'" name="'.$name.'" value="'.$hash.'">';
