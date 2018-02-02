@@ -39,7 +39,7 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
         }
 
         private function mockingHelper_field(NonceRoot $nonceObject) {
-            $out = '<input type="hidden" name="'.$nonceObject->action().'" value="'.$nonceObject->nonce().'">';
+            $out = '<input type="hidden" name="'.$nonceObject->name().'" value="'.$nonceObject->nonce().'">';
             WP_Mock::userFunction('wp_nonce_field', array(
                 'return' => $out
             ));
@@ -83,7 +83,7 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
             $accepted = '';
 
             $root = new NonceRoot();
-            $askedResult = $root->action();
+            $askedResult = $root->name();
 
             $this->assertEquals($askedResult, $accepted);
         }
@@ -98,8 +98,8 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
             // run over the array for asserting
             foreach($actionStrings as $key => $val) {
                 $root = new NonceRoot();
-                $directResult = $root->action($val);
-                $askedResult = $root->action();
+                $directResult = $root->name($val);
+                $askedResult = $root->name();
 
                 $this->assertEquals($directResult, $val);
                 $this->assertEquals($askedResult, $val);
@@ -146,7 +146,7 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
             foreach($actionStrings as $key => $val) {
                 $root = new NonceRoot();
                 $root->nonce($val);
-                $resultAction = $root->action();
+                $resultAction = $root->name();
 
                 $this->assertNotEmpty($resultAction);
             }

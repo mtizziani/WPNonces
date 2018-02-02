@@ -13,7 +13,7 @@ class WPNonce
     /**
      * @var string
      */
-    protected $action = '';
+    protected $name = '';
 
     /**
      * @var string
@@ -40,14 +40,14 @@ class WPNonce
      * @param string|NULL $actionName
      * @return string
      */
-    public function action(string $actionName = NULL): string {
+    public function name(string $actionName = NULL): string {
         if(!is_null($actionName)) {
             $actionName = trim($actionName);
             if(strlen($actionName) > 0) {
-                $this->action = $actionName;
+                $this->name = $actionName;
             }
         }
-        return $this->action;
+        return $this->name;
     }
 
     /**
@@ -63,7 +63,7 @@ class WPNonce
      * @return string
      */
     public function nonce(string $actionName = NULL): string {
-        $action = $this->action($actionName);
+        $action = $this->name($actionName);
         $value = '';
         if(strlen($action) > 0) {
             $value = wp_create_nonce($action);
@@ -91,7 +91,7 @@ class WPNonce
      */
     public function field(bool $referer = false, bool $echo = false): string {
         // always use action as name
-        return wp_nonce_field($this->action, $this->action, $referer, $echo);
+        return wp_nonce_field($this->name, $this->name, $referer, $echo);
     }
 
 }
