@@ -82,4 +82,16 @@ class WPNonce
         return wp_verify_nonce($nonce);
     }
 
+    /**
+     * get a hidden input field with nonce settings
+     *
+     * @param bool $referer
+     * @param bool $echo
+     * @return string
+     */
+    public function field(bool $referer = false, bool $echo = false): string {
+        // always use action as name
+        return wp_nonce_field($this->action, $this->action, $referer, $echo);
+    }
+
 }
