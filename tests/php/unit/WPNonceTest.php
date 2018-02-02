@@ -174,7 +174,7 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
             $result = $root->verify($this->secondNonceHash);
 
             // assertion
-            $this->assertTrue($result);
+            $this->assertFalse($result);
         }
     }
 }
