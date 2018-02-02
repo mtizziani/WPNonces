@@ -18,15 +18,15 @@ class WPNonceTest extends \PHPUnit\Framework\TestCase
     /**
      * running before every test
      */
-    public function setUp(){
-
+    public function setUp() {
+        \WP_Mock::setUp();
     }
 
     /**
      * running after every test
      */
-    public function tearDown(){
-
+    public function tearDown() {
+        \WP_Mock::tearDown();
     }
 
     /**
