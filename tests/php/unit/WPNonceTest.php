@@ -24,14 +24,33 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
     class WPNonceTest extends TestCase
     {
 
-        protected $mockedNonceResult = '295a686963';
+        protected $firstNonceHash = '295a686963';
+        protected $secondNonceHash = 'c214gd5315';
+
+        /** -------------------------------------------- helpers ---------------------------------------------------- */
+
+        /**
+         * helping method for mock wp_verify_nonce with result true or false by input
+         *
+         * @param string $nonce
+         * @param NonceRoot $nonceObject
+         */
+        private function mockingHelper_verify(string $nonce, NonceRoot $nonceObject){
+            $result = ($nonce == $nonceObject->nonce());
+            WP_Mock::userFunction('wp_verify_nonce', array('return' => $result));
+        }
+
+        /** -------------------------------------------- setup ------------------------------------------------------ */
 
         /**
          * running before every test
          */
         public function setUp() {
+
+
             WP_Mock::setUp();
-            WP_Mock::userFunction('wp_create_nonce', array('return' => $this->mockedNonceResult));
+            WP_Mock::userFunction('wp_create_nonce', array('return' => $this->firstNonceHash));
+
         }
 
         /**
@@ -40,6 +59,8 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
         public function tearDown() {
             WP_Mock::tearDown();
         }
+
+        /** -------------------------------------------- tests ------------------------------------------------------ */
 
         /**
          * @test
@@ -105,8 +126,8 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
                 $directResult = $root->nonce($val);
                 $askedResult = $root->nonce();
 
-                $this->assertEquals($directResult, $this->mockedNonceResult);
-                $this->assertEquals($askedResult, $this->mockedNonceResult);
+                $this->assertEquals($directResult, $this->firstNonceHash);
+                $this->assertEquals($askedResult, $this->firstNonceHash);
             }
         }
 
@@ -124,6 +145,40 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
 
                 $this->assertNotEmpty($resultAction);
             }
+        }
+
+
+
+        /**
+         * @test
+         */
+        public function if_verify_returns_true_on_correct_input(){
+            // prepare test
+            $root = new NonceRoot();
+            $root->nonce('someActionName');
+            $this->mockingHelper_verify($this->firstNonceHash, $root);
+
+            // get result
+            $result = $root->verify($this->firstNonceHash);
+
+            // assertion
+            $this->assertTrue($result);
+        }
+
+        /**
+         * @test
+         */
+        public function if_verify_returns_false_on_incorrect_input(){
+            // prepare test
+            $root = new NonceRoot();
+            $root->nonce('someActionName');
+            $this->mockingHelper_verify($this->secondNonceHash, $root);
+
+            // get result
+            $result = $root->verify($this->secondNonceHash);
+
+            // assertion
+            $this->assertTrue($result);
         }
     }
 }
