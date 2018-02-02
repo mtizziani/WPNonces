@@ -15,11 +15,14 @@ use Mtizziani\WPNonces\{
 class WPNonceTest extends \PHPUnit\Framework\TestCase
 {
 
+    protected $mockedNonceResult = '295a686963';
+
     /**
      * running before every test
      */
     public function setUp() {
         \WP_Mock::setUp();
+        \WP_Mock::userFunction('wp_create_nonce', array('return' => $this->mockedNonceResult));
     }
 
     /**
@@ -36,4 +39,5 @@ class WPNonceTest extends \PHPUnit\Framework\TestCase
         $result = NonceRoot::test();
         $this->assertTrue($result);
     }
+
 }
