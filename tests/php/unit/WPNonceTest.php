@@ -176,5 +176,20 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
             // assertion
             $this->assertFalse($result);
         }
+
+        /**
+         * @test
+         */
+        public function if_test_returns_a_correct_input_element() {
+            // define what is accepted result
+            $accepted = '<input type="hidden" name="_myAction" value="'.$this->firstNonceHash.'">';
+
+            // prepare test
+            $root = new NonceRoot();
+            $root->nonce('someAction');
+            $result = $root->field();
+
+            $this->assertEquals($result, $accepted);
+        }
     }
 }
