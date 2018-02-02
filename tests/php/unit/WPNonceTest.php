@@ -184,9 +184,16 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
             // define what is accepted result
             $accepted = '<input type="hidden" name="_myAction" value="'.$this->firstNonceHash.'">';
 
-            // prepare test
+            // prepare and assert test for not matching
             $root = new NonceRoot();
             $root->nonce('someAction');
+            $result = $root->field();
+
+            $this->assertNotEquals($result, $accepted);
+
+            // prepare and assert test for matching
+            $root = new NonceRoot();
+            $root->nonce('_myAction');
             $result = $root->field();
 
             $this->assertEquals($result, $accepted);
