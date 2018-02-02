@@ -8,7 +8,6 @@
 
 namespace Mtizziani\WPNonces\Tests\php\unit {
 
-
     use \PHPUnit\Framework\{
         TestCase as TestCase
     };
@@ -18,7 +17,6 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
     };
 
     use WP_Mock;
-
 
 
     class WPNonceTest extends TestCase
@@ -146,8 +144,6 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
                 $this->assertNotEmpty($resultAction);
             }
         }
-
-
 
         /**
          * @test
