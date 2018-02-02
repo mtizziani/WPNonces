@@ -38,6 +38,13 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
             WP_Mock::userFunction('wp_verify_nonce', array('return' => $result));
         }
 
+        private function mockingHelper_field(NonceRoot $nonceObject) {
+            $out = '<input type="hidden" name="'.$nonceObject->action().'" value="'.$nonceObject->nonce().'">';
+            WP_Mock::userFunction('wp_nonce_field', array(
+                'return' => $out
+            ));
+        }
+
         /** -------------------------------------------- setup ------------------------------------------------------ */
 
         /**
@@ -184,19 +191,29 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
             // define what is accepted result
             $accepted = '<input type="hidden" name="_myAction" value="'.$this->firstNonceHash.'">';
 
-            // prepare and assert test for not matching
-            $root = new NonceRoot();
-            $root->nonce('someAction');
-            $result = $root->field();
-
-            $this->assertNotEquals($result, $accepted);
-
             // prepare and assert test for matching
             $root = new NonceRoot();
             $root->nonce('_myAction');
+            $this->mockingHelper_field($root);
             $result = $root->field();
 
             $this->assertEquals($result, $accepted);
+        }
+
+        /**
+         * @test
+         */
+        public function if_test_returns_a_incorrect_input_element() {
+            // define what is accepted
+            $accepted = '<input type="hidden" name="_myAction" value="'.$this->firstNonceHash.'">';
+
+            // prepare and assert test for not matching
+            $root = new NonceRoot();
+            $root->nonce('_someAction');
+            $this->mockingHelper_field($root);
+            $result = $root->field();
+
+            $this->assertNotEquals($result, $accepted);
         }
     }
 }
