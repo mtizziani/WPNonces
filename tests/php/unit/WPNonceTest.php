@@ -39,7 +39,8 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
         }
 
         private function mockingHelper_field(NonceRoot $nonceObject) {
-            $out = '<input type="hidden" name="'.$nonceObject->name().'" value="'.$nonceObject->nonce().'">';
+            // todo: implement attributes action, refferer, echo for response in mock (not easy)
+            $out = '<input type="hidden" id="'.$nonceObject->name().'" name="'.$nonceObject->name().'" value="'.$nonceObject->nonce().'">';
             WP_Mock::userFunction('wp_nonce_field', array(
                 'return' => $out
             ));
@@ -188,8 +189,9 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
          * @test
          */
         public function if_test_returns_a_correct_input_element() {
+            $tmp_name = '_myAction';
             // define what is accepted result
-            $accepted = '<input type="hidden" name="_myAction" value="'.$this->firstNonceHash.'">';
+            $accepted = '<input type="hidden" id="'.$tmp_name.'" name="'.$tmp_name.'" value="'.$this->firstNonceHash.'">';
 
             // prepare and assert test for matching
             $root = new NonceRoot();
@@ -204,8 +206,9 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
          * @test
          */
         public function if_test_returns_a_incorrect_input_element() {
-            // define what is accepted
-            $accepted = '<input type="hidden" name="_myAction" value="'.$this->firstNonceHash.'">';
+            $tmp_name = '_myAction';
+            // define what is accepted result
+            $accepted = '<input type="hidden" id="'.$tmp_name.'" name="'.$tmp_name.'" value="'.$this->firstNonceHash.'">';
 
             // prepare and assert test for not matching
             $root = new NonceRoot();
