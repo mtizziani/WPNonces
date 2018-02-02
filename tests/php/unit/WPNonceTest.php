@@ -38,8 +38,11 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
             WP_Mock::userFunction('wp_verify_nonce', array('return' => $result));
         }
 
-        private function mockingHelper_field(NonceRoot $nonceObject) {
-            $out = '<input type="hidden" name="'.$nonceObject->action().'" value="'.$nonceObject->nonce().'">';
+        private function mockingHelper_field(NonceRoot $nonceObject, $name, $hash = '') {
+            if(strlen($hash) <= 1){
+                $hash = $nonceObject->nonce();
+            }
+            $out = '<input type="hidden" id="'.$name.'" name="'.$name.'" value="'.$hash.'">';
             WP_Mock::userFunction('wp_nonce_field', array(
                 'return' => $out
             ));
@@ -189,13 +192,15 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
          */
         public function if_test_returns_a_correct_input_element() {
             // define what is accepted result
-            $accepted = '<input type="hidden" name="_myAction" value="'.$this->firstNonceHash.'">';
+            $acceptedName ='_myNamedField';
+            $accepted = '<input type="hidden" id="'.$acceptedName.'" name="'.$acceptedName.'" value="'.$this->firstNonceHash.'">';
 
             // prepare and assert test for matching
+            $name = '_myNamedField';
             $root = new NonceRoot();
-            $root->nonce('_myAction');
-            $this->mockingHelper_field($root);
-            $result = $root->field();
+            $root->nonce(-1);
+            $this->mockingHelper_field($root, $name);
+            $result = $root->field('_myNamedField');
 
             $this->assertEquals($result, $accepted);
         }
@@ -205,13 +210,15 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
          */
         public function if_test_returns_a_incorrect_input_element() {
             // define what is accepted
-            $accepted = '<input type="hidden" name="_myAction" value="'.$this->firstNonceHash.'">';
+            $acceptedName ='_myNamedField';
+            $accepted = '<input type="hidden" id="'.$acceptedName.'" name="'.$acceptedName.'" value="'.$this->firstNonceHash.'">';
 
             // prepare and assert test for not matching
+            $name = '_someOtherName';
             $root = new NonceRoot();
-            $root->nonce('_someAction');
-            $this->mockingHelper_field($root);
-            $result = $root->field();
+            $root->nonce(-1);
+            $this->mockingHelper_field($root, $name, $this->secondNonceHash);
+            $result = $root->field($name);
 
             $this->assertNotEquals($result, $accepted);
         }
