@@ -47,6 +47,11 @@ class WPNonce
                 $this->action = $actionName;
             }
         }
+
+        if($actionName == -1){
+            $this->action = $actionName;
+        }
+
         return $this->action;
     }
 
@@ -89,9 +94,8 @@ class WPNonce
      * @param bool $echo
      * @return string
      */
-    public function field(bool $referer = false, bool $echo = false): string {
-        // always use action as name
-        return wp_nonce_field($this->action, $this->action, $referer, $echo);
+    public function field(string $name, bool $referer = false, bool $echo = false): string {
+        return wp_nonce_field($this->action, $name, $referer, $echo);
     }
 
 }
