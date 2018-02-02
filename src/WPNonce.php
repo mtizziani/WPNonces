@@ -13,7 +13,7 @@ class WPNonce
     /**
      * @var string
      */
-    protected $name = '';
+    protected $action = '';
 
     /**
      * @var string
@@ -37,17 +37,17 @@ class WPNonce
      * else
      *   => returns an empty string
      *
-     * @param string|NULL $nameString
+     * @param string|NULL $actionName
      * @return string
      */
-    public function name(string $nameString = NULL): string {
-        if(!is_null($nameString)) {
-            $nameString = trim($nameString);
-            if(strlen($nameString) > 0) {
-                $this->name = $nameString;
+    public function action(string $actionName = NULL): string {
+        if(!is_null($actionName)) {
+            $actionName = trim($actionName);
+            if(strlen($actionName) > 0) {
+                $this->action = $actionName;
             }
         }
-        return $this->name;
+        return $this->action;
     }
 
     /**
@@ -59,11 +59,11 @@ class WPNonce
      * if property action is not empty
      *   => nonce will be created
      *
-     * @param string|NULL $nameString
+     * @param string|NULL $actionName
      * @return string
      */
-    public function nonce(string $nameString = NULL): string {
-        $action = $this->name($nameString);
+    public function nonce(string $actionName = NULL): string {
+        $action = $this->action($actionName);
         $value = '';
         if(strlen($action) > 0) {
             $value = wp_create_nonce($action);
@@ -89,20 +89,9 @@ class WPNonce
      * @param bool $echo
      * @return string
      */
-
-    /**
-     * @param string $action
-     * @param bool $referer
-     * @param bool $echo
-     * @return string
-     */
-    public function field(string $action = "-1",bool $referer = false, bool $echo = false): string {
-        // parse action to integer if is default value
-        if(is_numeric($action)) {
-            $action = (int) $action;
-        }
-        // always use stored name
-        return wp_nonce_field($action, $this->name, $referer, $echo);
+    public function field(bool $referer = false, bool $echo = false): string {
+        // always use action as name
+        return wp_nonce_field($this->action, $this->action, $referer, $echo);
     }
 
 }
