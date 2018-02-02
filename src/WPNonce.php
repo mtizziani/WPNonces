@@ -37,7 +37,7 @@ class WPNonce
      * else
      *   => returns an empty string
      *
-     * @param string|NULL $actionName
+     * @param string|int|NULL $actionName
      * @return string
      */
     public function action(string $actionName = NULL): string {
