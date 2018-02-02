@@ -40,4 +40,35 @@ class WPNonceTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($result);
     }
 
+    /**
+     * @test
+     */
+    public function if_action_is_not_set_return_empty_string() {
+        // define what is accepted as correct
+        $accepted = '';
+
+        $root = new NonceRoot();
+        $askedResult = $root->action();
+
+        $this->assertEquals($root, $accepted);
+    }
+
+    /**
+     * @test
+     */
+    public function if_action_will_be_set_and_returned() {
+        // generate array with multiple action names
+        $actionStrings = array('first_mocked_action', 'second_mocked_action');
+
+        // run over the array for asserting
+        foreach($actionStrings as $key => $val) {
+            $root = new NonceRoot();
+            $directResult = $root->action($val);
+            $askedResult = $root->action();
+
+            $this->assertEquals($directResult, $val);
+            $this->assertEquals($askedResult, $val);
+        }
+    }
+
 }
