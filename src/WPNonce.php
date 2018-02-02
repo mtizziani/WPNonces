@@ -72,4 +72,14 @@ class WPNonce
         return $this->nonce;
     }
 
+    /**
+     * verify a given nonce by using objects action
+     *
+     * @param string $nonce
+     * @return bool
+     */
+    public function verify( string $nonce ): bool {
+        return wp_verify_nonce($nonce);
+    }
+
 }
