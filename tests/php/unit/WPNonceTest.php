@@ -304,7 +304,7 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
             $result = $root->url($url);
 
             // assertion
-            $this->assertEquals($result);
+            $this->assertEquals($result, $accepted);
         }
     }
 }
