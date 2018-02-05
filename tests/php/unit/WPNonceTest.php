@@ -279,5 +279,32 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
                 $this->assertEquals($result, $accepted);
             }
         }
+
+        /**
+         * @test
+         */
+        public function if_nonce_url_returns_a_url_with_nonce_as_request_parameter() {
+            // define params
+            $url = 'http:://myUrl';
+            $action = 'my_action';
+
+            // define accepted
+            $accepted = $url.'?'.$this->firstNonceHash;
+
+            // create mock for wp_nonce_url
+            WP_Mock::userFunction('wp_nonce_url', array(
+                'return' => $url.'?'.$this->firstNonceHash
+            ));
+
+            // create nonce
+            $root = new NonceRoot();
+            $root->nonce($action);
+
+            // request result
+            $result = $root->url($url);
+
+            // assertion
+            $this->assertEquals($result);
+        }
     }
 }
