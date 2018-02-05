@@ -3,13 +3,22 @@
 This Project creates a WP-Package to use wp_nonce* functions in a OOP scope
 
 ## Version
-0.1
+0.1.1
 
 
 ## Description
 
 Using wp_nonce* function in a OOP scope is hard. So i had the experience to write a extension to use Nonces in OOP scope.
 You can simply create several WPNonce Objects to handle many nonces.
+
+
+## Install
+
+use composer for install:
+
+    composer require mtizziani/wpnonces
+
+    
 
 ## How to use
 
@@ -149,13 +158,10 @@ This sample shows you how to use my WPNonce Class in a form *(not tested)*
 this sample is inpired by [Pippins Plugins](https://pippinsplugins.com/introduction-to-using-nonces-for-form-validation/)    
 
 
-## Attention
-The project is not published as composer package ! Only Git references are available this time.
-
-
 ## Requirements
 
 - PHP 7.2 (tested)
+- Composer for installation
 
 
 ## Dev-Depencies
