@@ -13,7 +13,7 @@ class WPNonce
     /**
      * @var string
      */
-    protected $action = '';
+    protected $action = -1;
 
     /**
      * @var string
