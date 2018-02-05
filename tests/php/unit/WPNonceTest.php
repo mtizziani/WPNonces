@@ -63,12 +63,11 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
          * @param NonceRoot $nonceObject
          * @return string
          */
-        private function mockingHelper_ays(NonceRoot $nonceObject): string {
+        private function mockingHelper_ays(NonceRoot $nonceObject) {
             $out = 'something';
             if('log-out' == $nonceObject->action()){
                 $out = 'logout';
             }
-
             WP_Mock::userFunction('wp_nonce_ays', array(
                 'return' => $out
             ));
