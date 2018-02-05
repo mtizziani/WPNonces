@@ -68,8 +68,10 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
             if('log-out' == $nonceObject->action()){
                 $out = 'logout';
             }
-            // for testing return and not wp_die
-            return $out;
+
+            WP_Mock::userFunction('wp_nonce_ays', array(
+                'return' => $out
+            ));
         }
 
         /** -------------------------------------------- setup ------------------------------------------------------ */
