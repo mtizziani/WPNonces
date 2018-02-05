@@ -246,5 +246,37 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
 
             $this->assertNotEquals($result, $accepted);
         }
+
+        /**
+         * @test
+         */
+        public function if_ays_returns_logout_on_action_logout(){
+            $action = 'log-out';
+            $accepted = 'logout';
+
+            $root = new NonceRoot();
+            $root->nonce($action);
+            $this->mockingHelper_ays($root);
+            $result = $root->ays();
+
+            $this->assertEquals($result, $accepted);
+        }
+
+        /**
+         * @test
+         */
+        public function if_ays_returns_something_on_any_other_action(){
+            $testActions = ['my-action', 'other-action', 'random'];
+            $accepted = 'something';
+
+            foreach($testActions as $key => $val){
+                $root = new NonceRoot();
+                $root->nonce($val);
+                $this->mockingHelper_ays($root);
+                $result = $root->ays();
+
+                $this->assertEquals($result, $accepted);
+            }
+        }
     }
 }
