@@ -2,6 +2,10 @@
 
 This Project creates a WP-Package to use wp_nonce* functions in a OOP scope
 
+## Version
+0.1
+
+
 ## Description
 
 Using wp_nonce* function in a OOP scope is hard. So i had the experience to write a extension to use Nonces in OOP scope.
