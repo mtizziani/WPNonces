@@ -98,4 +98,15 @@ class WPNonce
         return wp_nonce_field($this->action, $name, $referer, $echo);
     }
 
+    /**
+     * Display “Are You Sure” message to confirm the action being taken.
+     *
+     * @return mixed
+     */
+    public function ays() {
+        // normal wp_nonce_ays does not return anything directly, managed by wp_die
+        // but for testing we have to reply a string
+        return wp_nonce_ays($this->action);
+    }
+
 }
