@@ -109,4 +109,15 @@ class WPNonce
         return wp_nonce_ays($this->action);
     }
 
+    /**
+     * Retrieve URL with nonce added to URL query.
+     *
+     * @param string $actionUrl
+     * @param string $name
+     * @return string
+     */
+    public function url(string $actionUrl, string $name = '_wpnonce'): string {
+        return wp_nonce_url($actionUrl, $this->nonce(), $name);
+    }
+
 }
