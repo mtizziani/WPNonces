@@ -14,7 +14,7 @@ You can simply create several WPNonce Objects to handle many nonces.
 ## How to use
 
 #### creating a WPNonce Object
-
+    <?php
     use \Mtizziani\WPNonce
     $obj = new WPNonce();
     $obj->nonce();
@@ -38,6 +38,7 @@ object looks like this
 Setter and getter for the action property. If $action is a string the property will be set, else it
 returns the value of the action.
 
+    <?php
     $obj->action('myActionName');
     $actionResult = $obj->action();
     
@@ -45,6 +46,7 @@ returns the value of the action.
 if action is already set you can create a nonce string by calling nonce, otherwise you can give in a action name and the 
 action will be set or overwritting.
 
+    <?php
     $privateNonceKey = $obj->nonce();
      
     // call without setting action before or want to overwrite action name
@@ -54,6 +56,7 @@ action will be set or overwritting.
 verify the nonce property against a given nonce. returns true if all is fine and false if nonce is not the same
 or outdated.
 
+    <?php
     $obj->nonce('action_a'); // creates a hash like '26sadfg2'
     
     $verified = $obj->verify('26sadfg2'); // returned true
@@ -61,23 +64,26 @@ or outdated.
     
 #### WPNonce->field(string fieldName)
 Generates a hidden input node with the field name and the nonce as value for using in a form
-
+    <?php
     $fieldString = $obj->field('myField'); 
     // returns '<input type="hidden" id="myField" name="myField" value="34Da3Bc">' for example
 
 #### WPNonce->url(string baseURL, [string $name])
 Generates a URL that is extended with the nonce hash.
 
+    <?php
     $url = $obj->url('http://myExample.com');
     // returned like 'http://myExample.com?26sadfg2'
     
 using ays with name attribute
 
+    <?php
     $url = $obj->url('http://myExample.com', 'myNonce');
     // returned like 'http://myExample.com?myNonce=26sadfg2'
     
 using base url with params
     
+    <?php
     $url = $obj->url('http://myExample.com?param1=234');
     // returned like 'http://myExample.com?param1=234&_wpnonce=26sadfg2';
     
@@ -85,6 +91,7 @@ using base url with params
 Handles a ays message by the wp_nonce_ays command based on out obj. For more details please
 have a look on [Developer Resource wp_nonce_ays](https://developer.wordpress.org/reference/functions/wp_nonce_ays/)
 
+    <?php
     $obj->ays();
     
 
@@ -92,7 +99,7 @@ have a look on [Developer Resource wp_nonce_ays](https://developer.wordpress.org
 
 This sample shows you how to use my WPNonce Class in a form *(not tested)*
     
-    
+    <?php
     /*
     Plugin Name: WPNonce Sample Form
     Description: A sample to use Mtizziani\WPNonces in a form
@@ -148,12 +155,12 @@ The project is not published as composer package ! Only Git references are avail
 
 ## Requirements
 
-PHP 7.2 (tested)
+- PHP 7.2 (tested)
 
 
 ## Dev-Depencies
-    PHPUnit ^6.5
-    WP_Mock 0.3.0
+- PHPUnit ^6.5
+- WP_Mock 0.3.0
  
   
 ### Refrences
