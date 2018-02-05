@@ -57,6 +57,21 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
             ));
         }
 
+        /**
+         * helping method for mocking wp_nonce_ays
+         *
+         * @param NonceRoot $nonceObject
+         * @return string
+         */
+        private function mockingHelper_ays(NonceRoot $nonceObject): string {
+            $out = 'something';
+            if('log-out' == $nonceObject->action()){
+                $out = 'logout';
+            }
+            // for testing return and not wp_die
+            return $out;
+        }
+
         /** -------------------------------------------- setup ------------------------------------------------------ */
 
         /**
