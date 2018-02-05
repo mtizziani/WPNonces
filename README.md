@@ -15,8 +15,6 @@ You can simply create several WPNonce Objects to handle many nonces.
     $obj = new WPNonce();
     $obj->nonce();
     
-    echo json_encode($obj);
-    
 object looks like this
 
     <\Mtizziani\WPNonces\WPNonce> {
