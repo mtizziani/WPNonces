@@ -66,6 +66,8 @@ class WPNonce
      *
      * @param string|NULL $actionName
      * @return string
+     *
+     * @uses wp_create_nonce
      */
     public function nonce(string $actionName = NULL): string {
         $action = $this->action($actionName);
@@ -82,6 +84,8 @@ class WPNonce
      *
      * @param string $nonce
      * @return bool
+     *
+     * @uses wp_verify_nonce
      */
     public function verify( string $nonce ): bool {
         return wp_verify_nonce($nonce);
@@ -93,6 +97,8 @@ class WPNonce
      * @param bool $referer
      * @param bool $echo
      * @return string
+     *
+     * @uses wp_nonce_field
      */
     public function field(string $name, bool $referer = false, bool $echo = false): string {
         return wp_nonce_field($this->action, $name, $referer, $echo);
@@ -102,6 +108,8 @@ class WPNonce
      * Display “Are You Sure” message to confirm the action being taken.
      *
      * @return mixed
+     *
+     * @uses wp_nonce_ays
      */
     public function ays() {
         // normal wp_nonce_ays does not return anything directly, managed by wp_die
@@ -115,6 +123,8 @@ class WPNonce
      * @param string $actionUrl
      * @param string $name
      * @return string
+     *
+     * @uses wp_nonce_url
      */
     public function url(string $actionUrl, string $name = '_wpnonce'): string {
         return wp_nonce_url($actionUrl, $this->nonce(), $name);
