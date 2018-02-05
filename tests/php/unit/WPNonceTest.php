@@ -106,9 +106,9 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
         /**
          * @test
          */
-        public function if_action_is_not_set_return_empty_string() {
+        public function if_action_is_not_set_return_default() {
             // define what is accepted as correct
-            $accepted = '';
+            $accepted = -1;
 
             $root = new NonceRoot();
             $askedResult = $root->action();
@@ -132,19 +132,6 @@ namespace Mtizziani\WPNonces\Tests\php\unit {
                 $this->assertEquals($directResult, $val);
                 $this->assertEquals($askedResult, $val);
             }
-        }
-
-        /**
-         * @test
-         */
-        public function if_nonce_is_not_create_returns_empty_string() {
-            // define what is accepted as correct
-            $accepted = '';
-
-            $root = new NonceRoot();
-            $askedResult = $root->nonce();
-
-            $this->assertEquals($askedResult, $accepted);
         }
 
         /**
